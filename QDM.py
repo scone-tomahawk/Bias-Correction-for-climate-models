@@ -17,8 +17,7 @@ def apply_QDM(obs_dat,mod_dat,mod_nf,**kwargs):
     mod_dat,mod_nf,var = mod_dat.rename({'time':'t1'}),mod_nf.rename({'time':'t2'}),list(obs_dat.keys())
     time1,time2 = mod_dat['t1'].values,mod_nf['t2'].values
     mod_dat,mod_nf = mod_dat.dropna('t1'),mod_nf.dropna('t2')
-    tRF,tPR = len(mod_dat['t1']),len(mod_nf['t2'])
-    
+     
     hist,proj=xr.apply_ufunc(bcQDM,obs_dat,mod_dat,mod_nf,kwargs=kwargs,input_core_dims=[['time'],['t1'],['t2']],
                       output_core_dims=[['t1'],['t2']],vectorize=True,dask='allowed')
     
